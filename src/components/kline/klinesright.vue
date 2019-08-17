@@ -76,7 +76,9 @@ export default {
      px_change:'',
      px_change_rate:'',
      scode:this.$route.query.scode,
-     timer:''
+     timer:'',
+    token:localStorage.getItem('token'),
+    uid:localStorage.getItem('uid'),
     }
   },
   created(){
@@ -115,8 +117,8 @@ export default {
   getdata(){        //获取个股详情
     let url=_const.requestUrl+'/hcfshares/optional/singleScodeInfo'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
         scode:this.$route.query.scode
       }
       let _this=this;

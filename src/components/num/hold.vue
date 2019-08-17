@@ -5,6 +5,7 @@
         <div class="num" >
       <el-table
        v-loadmore='loadMore'
+        :cell-style="tablepading"
          highlight-current-row 
       @row-click='chooseitem'
       :data="tableData3" 
@@ -65,6 +66,10 @@
        key:'fdyk',
       width:'100'
     },{
+      tile:'亏损比例',
+       key:'fdykb',
+       width:'140'
+    },{
       tile:'持仓市值',
        key:'nowValue',
       width:''
@@ -74,14 +79,15 @@
      pages:'',
      loadSign:'',
      rowitem:'',
-       timer:'',
+    timer:'',
+    token:localStorage.getItem('token'),
+   uid:localStorage.getItem('uid'),
       }
     },
     created(){
       this.getdata();
     },
      mounted(){
-
       let _this=this;
        if(_const.week !== 0 && _const.week !== 6){
               if(_const.timeNow > _const.timeDayStart1  && _const.timeNow < _const.timeDayEnd1 || _const.timeNow > _const.timeDayStart2 && _const.timeNow < _const.timeDayEnd2){
@@ -99,8 +105,8 @@
         console.log(1);
        let url=_const.requestUrl+'/hcfshares/codeinfo/holdPositionList'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
         page:this.page,
         size:10
       }
@@ -147,8 +153,8 @@
         console.log(this.rowitem);
          let url=_const.requestUrl+'/hcfshares/optional/singleScodeInfo'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
         scode:row.scode
       }
       let _this=this;
@@ -171,8 +177,8 @@
       });
       let url2=_const.requestUrl+'/hcfshares/commionwith/canBuyShares' //可买数量
       let data2={
-        token:_const.token,
-        uid:_const.uid,
+        token:_this.token,
+        uid:_this.uid,
         scode:row.scode,
         sharesprice:row.price,
       }
@@ -194,8 +200,8 @@
       });
        let url3=_const.requestUrl+'/hcfshares/commionwith/canSellSharesNum' //可卖数量
       let data3={
-        token:_const.token,
-        uid:_const.uid,
+        token:_this.token,
+        uid:_this.uid,
         scode:row.scode,
       }
        $.ajax({
@@ -216,6 +222,18 @@
       });
        this.$router.push({path:'/klines',query:{scode:row.scode}})  
       },
+      tablepading({row, column, rowIndex, columnIndex}){ //颜色判断
+         if(row.fdykb>0&&column.label=='亏损比例'){
+           return "color:red"
+         }else if(row.fdykb<0&&column.label=='亏损比例'){
+           return "color:#00FF00"
+         }
+          if(row.fdyk>0&&column.label=='浮动盈亏'){
+           return "color:red"
+         }else if(row.fdyk<0&&column.label=='浮动盈亏'){
+           return "color:#00FF00"
+         }
+       }
 
 
     }

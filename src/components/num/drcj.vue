@@ -64,6 +64,10 @@
        key:'amount',
        width:'80'
     },{
+      tile:'过户费',
+       key:'transfer',
+       width:'100'
+    },{
       tile:'佣金',
        key:'tax',
        width:'80'
@@ -75,7 +79,9 @@
    tableData3: [],
    loadSign:'',
    page:1,
-   pages:''
+   pages:'',
+    token:localStorage.getItem('token'),
+  uid:localStorage.getItem('uid'),
       };
     },
     watch:{
@@ -93,8 +99,8 @@
        getdatadrcj(){
         let url=_const.requestUrl+'/hcfshares/codeinfo/entrustTranac'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
         startDate:this.initnowday(),
         endDate:this.initnowday(),
         page:this.page,

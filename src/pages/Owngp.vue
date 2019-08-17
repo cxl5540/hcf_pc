@@ -92,7 +92,9 @@ export default {
     ],  
    tableData3: [],
       getIndex:'',
-      timer:''
+      timer:'',
+      token:localStorage.getItem('token'),
+    uid:localStorage.getItem('uid'),
          
     }
   },
@@ -120,8 +122,8 @@ export default {
       let url=_const.requestUrl+'/hcfshares/optional/queryOptionalQuotation'
       let data={
         fields:'prod_name,prod_code,px_change_rate,px_change,last_px,open_px,high_px,low_px,turnover_value,turnover_volume,preclose_px,market_value,preclose_px',
-        uid:_const.uid,
-        token:_const.token,
+        uid:this.uid,
+        token:this.token,
       }
       let _this=this;
        $.ajax({

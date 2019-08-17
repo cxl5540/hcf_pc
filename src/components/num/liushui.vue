@@ -65,6 +65,8 @@
     pages:'',
     startlsDate:'',
     endlsDate:'',
+    token:localStorage.getItem('token'),
+   uid:localStorage.getItem('uid'),
       };
     },
    watch:{
@@ -81,8 +83,8 @@
       getdataliushui(){
         let url=_const.requestUrl+'/hcfshares/codeinfo/capitalFlow'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
         startDate:this.startlsDate,
         endDate:this.endlsDate,
         page:this.page,

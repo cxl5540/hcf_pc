@@ -79,7 +79,9 @@
    page:1,
    pages:'',
    loadSign:'',
-   rowitem:''
+   rowitem:'',
+  token:localStorage.getItem('token'),
+  uid:localStorage.getItem('uid'),
       };
     },
     created(){
@@ -89,8 +91,8 @@
       getdata(){
         let url=_const.requestUrl+'/hcfshares/codeinfo/entrustTranac'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
         startDate:'',
         endDate:'',
         page:this.page,
@@ -166,8 +168,8 @@
         }).then(() => {
           let url=_const.requestUrl+'/hcfshares/commionwith/reofTrust'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
         orderid:this.rowitem.orderid,
       }
       let _this=this;
@@ -211,8 +213,8 @@
         }).then(() => {
           let url=_const.requestUrl+'/hcfshares/commionwith/reofTrustAll'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
       }
       let _this=this;
        $.ajax({

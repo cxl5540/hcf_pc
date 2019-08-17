@@ -90,7 +90,8 @@
        key:'crjhj',
        width:''
     }],  
-   tableData3: []
+   tableData3: [],
+
       };
     },
     methods: {

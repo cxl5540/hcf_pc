@@ -94,7 +94,9 @@
    currentRow:'',
    loadSign:'',
    page:1,
-   pages:''
+   pages:'',
+    token:localStorage.getItem('token'),
+   uid:localStorage.getItem('uid'),
       };
     },
    created(){
@@ -113,8 +115,8 @@
       getdata(){  //委托列表
         let url=_const.requestUrl+'/hcfshares/codeinfo/entrustTranac'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
         startDate:'',
         endDate:'',
         page:this.page,
@@ -134,6 +136,7 @@
               _this.loadSign=res.data.hasNextPage;
                for(var i=0;i< res.data.list.length;i++){               
                 res.data.list[i].type=='0'?res.data.list[i].type='买入':res.data.list[i].type='卖出'
+                 res.data.list[i].ordertype=='0'?res.data.list[i].ordertype='限价':res.data.list[i].ordertype='市价'
                 res.data.list[i].status=='0'?res.data.list[i].status='委托中':res.data.list[i].status=='1'?res.data.list[i].status='成交':res.data.list[i].status='撤单'
               }
               if(this.page==1){
@@ -185,8 +188,8 @@
         console.log(this.rowitem);
          let url=_const.requestUrl+'/hcfshares/optional/singleScodeInfo'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
         scode:row.scode
       }
       let _this=this;
@@ -209,8 +212,8 @@
       });
       let url2=_const.requestUrl+'/hcfshares/commionwith/canBuyShares' //可买数量
       let data2={
-        token:_const.token,
-        uid:_const.uid,
+        token:_this.token,
+        uid:_this.uid,
         scode:row.scode,
         sharesprice:row.price,
       }
@@ -232,8 +235,8 @@
       });
        let url3=_const.requestUrl+'/hcfshares/commionwith/canSellSharesNum' //可卖数量
       let data3={
-        token:_const.token,
-        uid:_const.uid,
+        token:_this.token,
+        uid:_this.uid,
         scode:row.scode,
       }
        $.ajax({
@@ -265,8 +268,8 @@
         }).then(() => {
           let url=_const.requestUrl+'/hcfshares/commionwith/reofTrust'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
         orderid:this.rowitem.orderid,
       }
       let _this=this;
@@ -309,8 +312,8 @@
         }).then(() => {
           let url=_const.requestUrl+'/hcfshares/commionwith/reofTrust'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
       }
       let _this=this;
        $.ajax({

@@ -74,6 +74,10 @@
        key:'tax',
        width:'100'
     },{
+      tile:'过户费',
+       key:'transfer',
+       width:'100'
+    },{
       tile:'印花税',
        key:'duty',
        width:''
@@ -83,7 +87,9 @@
     page:1,
     pages:'',
     startcjDate:'',
-    endcjDate:''
+    endcjDate:'',
+    token:localStorage.getItem('token'),
+    uid:localStorage.getItem('uid'),
       };
     },
    watch:{
@@ -102,8 +108,8 @@
        getdatalsxj(){
         let url=_const.requestUrl+'/hcfshares/codeinfo/entrustTranac'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
         startDate:this.startcjDate,
         endDate:this.endcjDate,
         page:this.page,

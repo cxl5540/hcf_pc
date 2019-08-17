@@ -37,7 +37,9 @@ export default {
      myChart1:'',
      myChart2:'',
      myChart3:'',
-     myChart4:''
+     myChart4:'',
+    token:localStorage.getItem('token'),
+    uid:localStorage.getItem('uid'),
     }
   },
   created(){
@@ -169,8 +171,8 @@ export default {
   getdata(){  //获取分时线
     let url=_const.requestUrl+'/hcfshares/optional/getTimeSharing'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
         scode:this.$route.query.scode,
         limit:'242'
       }
@@ -347,8 +349,8 @@ export default {
    getmindata(){  //获取日线
     let url=_const.requestUrl+'/hcfshares/optional/getKline'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
         scode:this.$route.query.scode,
         type:this.type,
         limit:'500'
@@ -644,8 +646,8 @@ export default {
   getwdatat(){  //获周时间
     let url=_const.requestUrl+'/hcfshares/optional/getKline'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
         scode:this.$route.query.scode,
         type:'W',
         limit:'500'
@@ -927,8 +929,8 @@ export default {
    getmdatat(){  //获月时间
     let url=_const.requestUrl+'/hcfshares/optional/getKline'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
         scode:this.$route.query.scode,
         type:'M',
         limit:'500'
@@ -1217,8 +1219,8 @@ export default {
   addown(){
     let url=_const.requestUrl+'/hcfshares/optional/userAddOptional'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
         scode:this.$route.query.scode,
       }
       let _this=this;

@@ -110,7 +110,9 @@ export default {
    pages:'',
    lastPage:'',
    px:'desc',
-  timer:''
+  timer:'',
+    token:localStorage.getItem('token'),
+    uid:localStorage.getItem('uid'),
          
     }
   },

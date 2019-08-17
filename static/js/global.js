@@ -1,8 +1,8 @@
 import axios from "axios"
 
 const config = {
- requestUrl:'http://47.103.114.28:8888',
-  /* requestUrl:'http://192.168.3.49:8888',*/
+requestUrl:'http://47.103.114.28:8888',
+/* requestUrl:'http://192.168.3.49:8888',*/
      token:'',
      uid:'',
      oldpassword:'',

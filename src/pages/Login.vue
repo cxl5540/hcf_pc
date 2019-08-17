@@ -62,9 +62,10 @@ export default {
               _const.token=res.data.token;
               _const.uid=res.data.uid;
               _const.oldpassword=_this.password;
-              console.log( _const.oldpassword);
               _this.$message.success(res.msg);
               _const.loginusername=_this.username;
+              localStorage.setItem('token', res.data.token);
+              localStorage.setItem('uid', res.data.uid);
              _this.$router.push({path:'/index',query:{scode:'000001'}});
 
             }else if(res.code==402){

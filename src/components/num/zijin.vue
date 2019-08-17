@@ -100,7 +100,9 @@
        key:'repNowPrice',
        width:''
     }],  
-   tableData3: [],
+    tableData3: [],
+       token:localStorage.getItem('token'),
+    uid:localStorage.getItem('uid'),
    
       };
     },
@@ -122,8 +124,8 @@
          /*this.tableData3=[];*/
         let url=_const.requestUrl+'/hcfshares/codeinfo/userAssets'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
         startDate:'',
         endDate:'',
         page:'1',

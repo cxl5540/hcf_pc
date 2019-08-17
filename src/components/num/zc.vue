@@ -6,8 +6,7 @@
       :data="tableData3"  
       :cell-style="tablepading"
       height='100%'
-      :row-style="tableRowStyle"
-      :header-cell-style="tableHeaderColor"
+       :header-cell-style="{'background-color':'#1F232B','color':'#848fa3','width':'100%',}"
       style="width: 100%;background:#000">
       <el-table-column
       v-for="(item,index) in title"
@@ -80,6 +79,10 @@
        key:'plus',
        width:'100'
     },{
+      tile:'亏损比例',
+       key:'fdykb',
+       width:'100'
+    },{
       tile:'累计盈亏',
        key:'curProfit',
        width:'100'
@@ -100,7 +103,9 @@
        key:'repNowPrice',
        width:''
     }],  
-   tableData3: []
+   tableData3: [],
+    token:localStorage.getItem('token'),
+    uid:localStorage.getItem('uid'),
       };
     },
    watch:{
@@ -116,8 +121,8 @@
          this.tableData3=[];
         let url=_const.requestUrl+'/hcfshares/codeinfo/userAssets'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
         startDate:'',
         endDate:'',
         page:'1',
@@ -149,15 +154,29 @@
       handleClick(tab, event) {
         
       },
-       tableRowStyle({row,rowIndex}){
-         return 'background-color:#13151A;color:#fff;font-size:12px;'
-    },
+
               //设置表头行的样式
-      tableHeaderColor({row,column,rowIndex,columnIndex}){
-        return 'background-color:#1F232B;color:#848fa3;font-size:14px;font-weight:100;padding:6px 0;width:100%'
-     },
      tablepading({row, column, rowIndex, columnIndex}){
-      return 'padding:2px 0;'
+      if(row.fdyk>0&&column.label=='浮动盈亏'){
+           return "color:red"
+         }else if(row.fdyk<0&&column.label=='浮动盈亏'){
+           return "color:#00ff00"
+         }
+         if(row.plus>0&&column.label=='平仓盈亏'){
+           return "color:red"
+         }else if(row.plus<0&&column.label=='平仓盈亏'){
+           return "color:#00ff00"
+         }
+         if(row.curProfit>0&&column.label=='累计盈亏'){
+           return "color:red"
+         }else if(row.curProfit<0&&column.label=='累计盈亏'){
+           return "color:#00ff00"
+         }
+          if(row.fdykb>0&&column.label=='亏损比例'){
+           return "color:red"
+         }else if(row.fdykb<0&&column.label=='亏损比例'){
+           return "color:#00ff00"
+         }   
      },
     }
   };

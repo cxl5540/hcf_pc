@@ -100,7 +100,9 @@ import Liushui from './liushui'
    tableData3: [],
       loadSign:'',
      page:1,
-     pages:''
+     pages:'',
+    token:localStorage.getItem('token'),
+    uid:localStorage.getItem('uid'),
     }
    }, 
    created(){
@@ -130,8 +132,8 @@ import Liushui from './liushui'
         this.tableData3=[];
         let url=_const.requestUrl+'/hcfshares/codeinfo/entrustTranac'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
         startDate:this.initnowday(),
         endDate:this.initnowday(),
         page:this.page,
@@ -151,6 +153,7 @@ import Liushui from './liushui'
               _this.loadSign=res.data.hasNextPage;
                for(var i=0;i< res.data.list.length;i++){               
                 res.data.list[i].type=='0'?res.data.list[i].type='买入':res.data.list[i].type='卖出'
+                 res.data.list[i].ordertype=='0'?res.data.list[i].ordertype='限价':res.data.list[i].ordertype='市价'
                 res.data.list[i].status=='0'?res.data.list[i].status='委托中':res.data.list[i].status=='1'?res.data.list[i].status='成交':res.data.list[i].status='撤单'
               }
               if(this.page==1){

@@ -31,7 +31,9 @@ export default {
   data () {
     return {
      owndata:[],
-      timer:''
+      timer:'',
+    token:localStorage.getItem('token'),
+    uid:localStorage.getItem('uid'),
     }
   },
   created(){
@@ -58,8 +60,8 @@ export default {
    getdata(){
       let url=_const.requestUrl+'/hcfshares/optional/queryOptionalQuotation'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
          fields:'prod_name,prod_code,px_change_rate,px_change,last_px,',
       }
       let _this=this;

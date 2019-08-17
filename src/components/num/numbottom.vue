@@ -158,7 +158,8 @@ export default {
    Entrust,
    Hold,
    Chengjiao,
-   Zijin
+   Zijin,
+
   },
 
   data () {
@@ -189,7 +190,9 @@ export default {
       last_px:'',
       prod_name:'',
       timer:'',
-      state:''
+      state:'',
+      token:localStorage.getItem('token'),
+      uid:localStorage.getItem('uid'),
     }
   },
   created(){
@@ -285,6 +288,7 @@ export default {
     }
   },
   methods:{
+    
     getdetal(data){//个股详情
       this.singledata=data;
       this.prod_code=data[0].prod_code;
@@ -301,8 +305,8 @@ export default {
     getdatazc(){
       let url=_const.requestUrl+'/hcfshares/codeinfo/userAssets'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
 
       }
       let _this=this;
@@ -332,8 +336,8 @@ export default {
     }
     let url=_const.requestUrl+'/hcfshares/optional/singleScodeInfo'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
         scode:this.scode,
       }
       let _this=this;
@@ -374,8 +378,8 @@ export default {
     let code=this.scode;
     let url=_const.requestUrl+'/hcfshares/optional/singleScodeInfo'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
         scode:this.scode,
       }
       let _this=this;
@@ -412,8 +416,8 @@ export default {
     getbuynum(){  //可买数量
        let url=_const.requestUrl+'/hcfshares/commionwith/canBuyShares'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
         scode:this.scode,
         sharesprice:this.priceb,
       }
@@ -440,20 +444,20 @@ export default {
       this.getbuynum();
     },
     buyin(){  //买入
-      let cprice=''
+      let ordertype=''
      if(this.checkedbuy==true){
-      cprice=1;
+      ordertype=1;
      }else{
-      cprice=0;
+      ordertype=0;
      } 
       let url=_const.requestUrl+'/hcfshares/commionwith/buyEntShares'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
         scode:this.scode,
         sname:this.singledata[0].prod_name,
         snum:this.buynum,
-        cprice:cprice,
+        ordertype:ordertype,
         sprice:this.priceb,
       }
       let _this=this;
@@ -487,8 +491,8 @@ export default {
             dataType: 'JSON',
             type: 'POST',
             data: {
-                token:_const.token,
-                uid:_const.uid,
+                token:this.token,
+                uid:this.uid,
                 sharescode:this.scode,
                 sharesprice:this.ztprice
             },
@@ -507,8 +511,8 @@ export default {
      getsellnum(){  //可卖数量
        let url=_const.requestUrl+'/hcfshares/commionwith/canSellSharesNum'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
         scode:this.scode,
 
       }
@@ -534,20 +538,20 @@ export default {
       this.getsellnum();
     },
     sellout(){   //卖出
-       let cprice=''
+       let ordertype=''
      if(this.checkedbuy==true){
-      cprice=1;
+      ordertype=1;
      }else{
-      cprice=0;
+      ordertype=0;
      } 
       let url=_const.requestUrl+'/hcfshares/commionwith/sellEntShares'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
         scode:this.scode,
         sname:this.singledata[0].prod_name,
         snum:this.sellnum,
-        cprice:cprice,
+        ordertype:ordertype,
         sprice:this.prices,
       }
       let _this=this;
@@ -578,8 +582,8 @@ export default {
    getconcat(){  //获取链接
       let url=_const.requestUrl+'/hcfshares/codeinfo/transService';
        let data={
-          token:_const.token,
-          uid:_const.uid
+          token:this.token,
+          uid:this.uid
         }
        let _this=this;
        $.ajax({

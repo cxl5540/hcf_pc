@@ -59,7 +59,9 @@ export default {
       renewpass:'',
       username:'',
       searchv:'',
-      searchlist:''
+      searchlist:'',
+      token:localStorage.getItem('token'),
+    uid:localStorage.getItem('uid'),
     }
   },
   created(){
@@ -84,8 +86,8 @@ export default {
     upadatepass(){
       let url=_const.requestUrl+'/hcfshares/login/updateUserPwd'
       let data={
-        token:_const.token,
-        uid:_const.uid,
+        token:this.token,
+        uid:this.uid,
         pwd:this.newpass,
         ypwd:this.oldpass,
         pwdh:this.renewpass,
@@ -98,8 +100,14 @@ export default {
           type:"POST",   //请求方式
           success:function(res){
             if(res.code==0){
-              _this.$message.success(res.msg);
+              localStorage.removeItem('token');
+              localStorage.removeItem('uid');
+              setTimeout(function(){
+                 _this.$message.success(res.msg+'请重新登录');
+                  _this.$router.push({path:'/'});
 
+               },2000);
+                          
             }else if(res.code==402){
                _this.$message.error(res.msg);
             }else if(res.code==401){
@@ -153,8 +161,8 @@ export default {
         }).then(() => {
        let url=_const.requestUrl+'/hcfshares/login/exitLog'
       let data={
-        token:_const.token,
-        uid:_const.uid
+        token:this.token,
+        uid:this.uid
       }
       let _this=this;
        $.ajax({
@@ -166,6 +174,8 @@ export default {
             if(res.code==0){
             _this.$router.push('/');
              _this.$message.success('已安全退出');
+             localStorage.removeItem('token');
+              localStorage.removeItem('uid');
           }
         },       
           error:function(){
